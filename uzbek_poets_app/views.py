@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, BasePermission
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .filters import PoetsFilter
+from .filters import PoemsFilter, PoetsFilter
 from .models import PoetsModel, PoemsModel
 from .serializers import UzbekPoemsSerializer, UzbekPoetsSerializer
 
@@ -14,6 +14,8 @@ class Cheak_poet(BasePermission):
     def has_permission(self, request, view):
         if request.method == "GET":
             return True
+        elif request.method == "POST":
+            return request.user
         return request.user == view.get_object().poet_user_id or request.user.is_superuser
 
 
@@ -40,7 +42,7 @@ class PoetsViewSet(ModelViewSet):
 class PoemsViewSet(ModelViewSet):
     queryset = PoemsModel.objects.all()
     serializer_class = UzbekPoemsSerializer
-    permission_classes = [IsAuthenticated, ]
+    filter_backends = [DjangoFilterBackend, ]
+    permission_classes = [Cheak_poem, ]
+    filterset_classes = PoemsFilter
     authentication_classes = [JWTAuthentication, ]
-    # filter_backends = [DjangoFilterBackend, ]
-
