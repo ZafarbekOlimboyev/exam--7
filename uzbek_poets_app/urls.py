@@ -6,7 +6,7 @@ from .views import PoetsViewSet, PoemsViewSet
 router = DefaultRouter()
 
 
-router.register(r'poets', PoetsViewSet)
-router.register(r'poems', PoemsViewSet)
+router.register(r'poets', PoetsViewSet, basename="name1")
+router.register(r'poems', PoemsViewSet, basename="name2")
 
 urlpatterns = router.urls

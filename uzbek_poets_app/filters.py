@@ -35,6 +35,10 @@ class PoemsFilter(FilterSet):
             return queryset.filter(
                 Q(poem_name__icontains=value) |
                 Q(poem_poem__icontains=value) |
-                Q(poem_poet_id__poet_name__icontains=value)
+                Q(poem_poet_id__poet_name__icontains=value),
+                Q(poem_poet_id__poet_description__icontains=value),
+                Q(poem_poet_id__poet_about__icontains=value),
+                Q(poem_poet_id__poet_birthdate__icontains=value),
+                Q(poem_poet_id__poet_dead_date__icontains=value),
             )
         return queryset

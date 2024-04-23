@@ -4,6 +4,13 @@ from uzbek_poets_app.models import PoetsModel, PoemsModel
 
 
 class UzbekPoetsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PoetsModel
+        fields = ['id', 'poet_name', 'poet_description', 'poet_image']
+        ordering = ('poet_name', )
+
+
+class UzbekPoetsAllInfoSerializer(serializers.ModelSerializer):
     poet_user_id = serializers.CharField(default=serializers.CurrentUserDefault())
 
     class Meta:
@@ -17,7 +24,10 @@ class UzbekPoemsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PoemsModel
-        fields = ['id', 'poem_name', 'poem_poem', 'poem_poet_id', 'poem_poet_details', 'poem_user_id']
+        fields = [
+            'id', 'poem_name', 'poem_poem',
+            'poem_poet_id', 'poem_poet_details',
+            'poem_user_id', 'poem_written_time']
 
     def get_poem_poet_details(self, object):
         details = {

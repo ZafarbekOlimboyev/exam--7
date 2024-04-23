@@ -1,9 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# from django.dispatch import receiver
-# from django.urls import reverse
-# from django.core.mail import send_mail
-# from django_rest_passwordreset.signals import reset_password_token_created
 
 
 class CustomUser(AbstractUser):
